@@ -21,6 +21,8 @@
   opacity: 0;
   font-family: 'sans-serif';
   transition: all 0.3s;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 #AutoGenQRcode canvas {
@@ -51,5 +53,7 @@
 #AutoGenQRcode:hover img {
   width: 128px;
   height: 128px;
+  max-width: 128px;
+  max-height: 128px;
   opacity: 1;
 }
