@@ -11,6 +11,7 @@
       "css": ["style.css"]
     }
   ],
+  "permissions": ["activeTab"],
   "action": {
     "default_icon": "images/icon128.png",
     "default_popup": "popup.html",
