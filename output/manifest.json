@@ -1,8 +1,8 @@
 {
   "name": "Auto Gen QR code — 自动生成二维码",
-  "version": "1.0",
+  "version": "1.0.0",
   "manifest_version": 3,
-  "description": "一个打开网站，自动生成当前网站的二维码工具",
+  "description": "一个打开网站，自动生成当前网站的二维码工具。",
   "homepage_url": "https://github.com/Keystion/auto-gen-qr-code",
   "content_scripts": [
     {
