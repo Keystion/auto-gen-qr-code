@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>插件配置 | Auto Gen QR code — 自动生成二维码</title>
+    <style>
+      body {
+        min-width: 400px;
+      }
+      span {
+        line-height: 24px;
+      }
+      fieldset{
+        margin-top: 20px;
+        width: 374px;
+        height: 200px;
+        position: relative;
+      }
+      fieldset label{
+        position: absolute;
+        border: 1px solid #000;
+        padding-right: 4px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+      }
+      fieldset label[for="rt"]{
+        top: 10px;
+        right: 10px;
+      }
+      fieldset label[for="rb"]{
+        bottom: 10px;
+        right: 10px;
+      }
+      fieldset label[for="lt"]{
+        top: 10px;
+        left: 10px;
+      }
+      fieldset label[for="lb"]{
+        bottom: 10px;
+        left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>插件配置 - Auto Gen QR code — 自动生成二维码</h2>
+    <!-- 返回 -->
+    <a href="popup.html">返回</a> 更改完页面自动刷新。
+    <br />
+    <br />
+    <label> <input type="checkbox" id="toggleSwitch" /> 启用插件 <span id="status"></span></label>
+    <!-- 位置 左上 左下 右上 右下 -->
+    <fieldset>
+      <legend>选择二维码位置：</legend>
+
+      <label for="rt"><input type="radio" id="rt" name="positon" value="rt" />右上角</label>
+
+      <label for="rb"><input type="radio" id="rb" name="positon" value="rb" />右下角</label>
+
+      <label for="lt"><input type="radio" id="lt" name="positon" value="lt" />左上角</label>
+
+      <label for="lb"><input type="radio" id="lb" name="positon" value="lb" />左下角</label>
+    </fieldset>
+    <script src="options.js"></script>
+  </body>
+</html>

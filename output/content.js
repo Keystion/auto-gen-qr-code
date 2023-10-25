@@ -614,16 +614,186 @@ var QRCode;
 	QRCode.CorrectLevel = QRErrorCorrectLevel;
 })();
 
+(async () => {
+	const CONFIG_ENABLED = await chrome.storage.local.get(['enabled']);
+	const CONFIG_POSITION = await chrome.storage.local.get(['position']);
 
-const qrcode = document.createElement('div');
-qrcode.id = 'AutoGenQRcode';
-document.body.appendChild(qrcode);
+	console.log('CONFIG_POSITION', CONFIG_POSITION);
 
-const qr = new QRCode(qrcode, {
-    text: window.location.href,
-    width: 128,
-    height: 128,
-    colorDark: '#000000',
-    colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.H,
-});
+	if (CONFIG_ENABLED.enabled === false) {
+		return;
+	}
+	
+	// Shadow DOM
+	const shadow = document.createElement('div');
+	const paragraph = document.createElement('p');
+	const style = document.createElement('style');
+	const positionClass = CONFIG_POSITION.position || 'tr';
+
+	paragraph.innerHTML = '在手机上浏览此网页';
+
+	style.textContent = `
+	canvas {
+		box-sizing: border-box;
+		height: 40px;
+		width: 40px;
+		padding: 10px;
+
+		border-radius: 8px;
+		background-color: rgba(200, 200, 200, 0.4);
+		opacity: 0.5;
+		display: block !important;
+
+		cursor: pointer;
+	}
+	img {
+		position: absolute;
+		top: 20px;
+		right: 46px;
+		border-radius: 8px;
+		background-color: #fff;
+		box-shadow: 0 0 10px rgba(0,0,0,0.3);
+
+		height: 0;
+		width: 0;
+		padding: 0;
+		opacity: 0;
+
+		transition: all 0.3s;
+	}
+	canvas.lt ~ img,
+	canvas.lb ~ img{
+		right: 0;
+	}
+
+	p {
+		position: absolute;
+		margin: 0;
+		width: 0;
+		bottom: 0;
+		background: #fff;
+		right: 46px;
+		font-size: 12px;
+		text-align: center;
+		line-height: 0;
+		height: 0;
+		overflow: hidden;
+		opacity: 0;
+	}
+	canvas.lt ~ p,
+	canvas.lb ~ p{
+		right: 0;
+	}
+
+	canvas.rt:hover ~ img,
+	canvas.rb:hover ~ img {
+		top: calc((112px - 24px) / 2 * -1);
+		height: 112px;
+		width: 112px;
+		padding: 12px 12px 36px 12px;
+		opacity: 1;
+	}
+	canvas.rt:hover ~ p,
+	canvas.rb:hover ~ p {
+		animation: fadeinright 0.3s forwards;
+	}
+
+	canvas.lt:hover ~ img,
+	canvas.lb:hover ~ img {
+		top: calc((112px - 24px) / 2 * -1);
+		right: -146px;
+		height: 112px;
+		width: 112px;
+		padding: 12px 12px 36px 12px;
+		opacity: 1;
+	}
+	canvas.lt:hover ~ p,
+	canvas.lb:hover ~ p {
+		animation: fadeinleft 0.3s forwards;
+	}
+
+
+	@keyframes fadeinright {
+		50%   {
+			line-height: 0;
+			height: 0;
+			width: 0;
+			bottom: 0;
+			opacity: 0;
+		}
+		100% {
+			line-height: 24px;
+			height: 24px;
+			width: 136px;
+			bottom: -66px;
+			opacity: 1;
+		}
+	}
+	@keyframes fadeinleft {
+		50%   {
+			line-height: 0;
+			height: 0;
+			width: 0;
+			bottom: 0;
+			opacity: 0;
+			right: 0;
+		}
+		100% {
+			line-height: 24px;
+			height: 24px;
+			width: 136px;
+			bottom: -66px;
+			right: -146px;
+			opacity: 1;
+		}
+	}
+	`;
+	shadow.dataset['id'] = 'bffmbfheegbbogkmjdhhmcaaljgaapol';
+
+	shadow.classList.add('chrome-extension__auto-gen-qr-code');
+
+	// 读取配置里面的位置
+	shadow.classList.add(positionClass);
+
+	const shadowRoot = shadow.attachShadow({ mode: 'open' });
+
+	shadowRoot.appendChild(style);
+
+	document.body.appendChild(shadow);
+
+	const qr = new QRCode(shadow.shadowRoot, {
+		text: window.location.href,
+		width: 128,
+		height: 128,
+		colorDark: '#000000',
+		colorLight: '#ffffff',
+		correctLevel: QRCode.CorrectLevel.H,
+	});
+	shadowRoot.appendChild(paragraph);
+	
+	const canvas = shadowRoot.querySelector('canvas');
+
+	// 给 canvas 添加 样式位置
+	canvas?.classList.add(positionClass);
+	
+	// 点击二维码时，复制 图片 到剪贴板
+	canvas.addEventListener('click', () => {
+		const canvas = shadowRoot.querySelector('canvas');
+		const dataURL = canvas.toDataURL('image/png');
+		const blob = dataURLtoBlob(dataURL);
+		const item = new ClipboardItem({ 'image/png': blob });
+		navigator.clipboard.write([item]);
+	});
+
+	function dataURLtoBlob(dataURL) {
+		const arr = dataURL.split(',');
+		const mime = arr[0].match(/:(.*?);/)[1];
+		const bstr = atob(arr[1]);
+		let n = bstr.length;
+		const u8arr = new Uint8Array(n);
+		while (n--) {
+			u8arr[n] = bstr.charCodeAt(n);
+		}
+		return new Blob([u8arr], { type: mime });
+	}
+})();
