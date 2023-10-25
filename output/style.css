@@ -1,0 +1,54 @@
+#AutoGenQRcode {
+  all: initial;
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  z-index: 999999;
+}
+
+#AutoGenQRcode::after{
+  content: "插件：Auto QRcode";
+  position: absolute;
+  right: -200px;
+  bottom: -132px;
+  width: 172px;
+  text-align: center;
+  left: initial;
+  background-color: #000;
+  font-size: 12px;
+  color: #fff;
+  padding: 2px 4px;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+#AutoGenQRcode canvas {
+  height: 24px;
+  width: 24px;
+  opacity: 0.5;
+  display: block !important;
+  z-index: 1;
+}
+#AutoGenQRcode img{
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: all 0.3s;
+  position: absolute;
+  right: 24px;
+  top: 0;
+  border: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+#AutoGenQRcode:hover::after {
+  opacity: 1;
+  right: -19px;
+}
+
+#AutoGenQRcode:hover img {
+  width: 128px;
+  height: 128px;
+  opacity: 1;
+}
