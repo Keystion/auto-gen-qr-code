@@ -1,6 +1,6 @@
 # Auto Gen QR code — 自动生成二维码
 
-![Logo](logo.png)
+![说明](preview.png)
 
 ## 介绍
 
