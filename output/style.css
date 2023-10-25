@@ -7,7 +7,7 @@
 }
 
 #AutoGenQRcode::after{
-  content: "插件：Auto QRcode";
+  content: "插件生成：Auto Gen QR code";
   position: absolute;
   right: -200px;
   bottom: -132px;
@@ -19,6 +19,7 @@
   color: #fff;
   padding: 2px 4px;
   opacity: 0;
+  font-family: 'sans-serif';
   transition: all 0.3s;
 }
 
