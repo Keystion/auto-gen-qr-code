@@ -1,5 +1,9 @@
 # Auto Gen QR code — 自动生成二维码
 
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/bffmbfheegbbogkmjdhhmcaaljgaapol)
+![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/bffmbfheegbbogkmjdhhmcaaljgaapol)
+
+
 ![说明](preview.png)
 
 ## 介绍
