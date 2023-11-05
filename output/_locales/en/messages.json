@@ -1,0 +1,68 @@
+{
+  "description": {
+    "message": "A tool that opens a website and generates a QR code for the current website."
+  },
+  "options": {
+    "message": "Plugin Options"
+  },
+  "more": {
+    "message": "More"
+  },
+  "back": {
+    "message": "Back"
+  },
+  "changeStatusTips": {
+    "message": "Automatically refreshes after changing the page."
+  },
+  "enable": {
+    "message": "(Enable)"
+  },
+  "disable": {
+    "message": "(Disable)"
+  },
+  "active": {
+    "message": "Activate Plugin"
+  },
+  "allalwaysShow": {
+    "message": "Always show large image"
+  },
+  "positionTitle": {
+    "message": "Select QR code position:"
+  },
+  "positionRgithTop": {
+    "message": "Top right"
+  },
+  "positionRightBottom": {
+    "message": "Bottom right"
+  },
+  "positionLeftTop": {
+    "message": "Top left"
+  },
+  "positionLeftBottom": {
+    "message": "Bottom left"
+  },
+  "popupTitle": {
+    "message": "Browse this webpage on your phone"
+  },
+  "buttonLarge": {
+    "message": "Large"
+  },
+  "buttonCopy": {
+    "message": "Copy"
+  },
+  "buttonDownload": {
+    "message": "Download"
+  },
+  "copySuccess": {
+    "message": "Copied"
+  },
+  "copyFailure": {
+    "message": "Copy failed"
+  },
+  "genAutoRun": {
+    "message": "Auto run"
+  },
+  "genCopyFail": {
+    "message": "Copy failed"
+  }
+}

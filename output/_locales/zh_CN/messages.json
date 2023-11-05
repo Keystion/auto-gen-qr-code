@@ -1,0 +1,68 @@
+{
+	"description": {
+		"message": "一个打开网站，自动生成当前网站的二维码工具。"
+	},
+	"options": {
+		"message": "插件配置"
+	},
+	"more": {
+		"message": "更多"
+	},
+	"back": {
+		"message": "返回"
+	},
+	"changeStatusTips": {
+		"message": "更改完页面自动刷新。"
+	},
+	"enable": {
+		"message": "（已启用）"
+	},
+	"disable": {
+		"message": "（已禁用）"
+	},
+	"active": {
+		"message": "启用插件"
+	},
+	"allalwaysShow": {
+		"message": "始终显示大图"
+	},
+	"positionTitle": {
+		"message": "选择二维码位置："
+	},
+	"positionRgithTop": {
+		"message": "右上角"
+	},
+	"positionRightBottom": {
+		"message": "右下角"
+	},
+	"positionLeftTop": {
+		"message": "左上角"
+	},
+	"positionLeftBottom": {
+		"message": "左下角"
+	},
+	"popupTitle": {
+		"message": "在手机上浏览此网页"
+	},
+	"buttonLarge": {
+		"message": "大图"
+	},
+	"buttonCopy": {
+		"message": "复制"
+	},
+	"buttonDownload": {
+		"message": "下载"
+	},
+	"copySuccess": {
+		"message": "已复制"
+	},
+	"copyFailure": {
+		"message": "复制失败"
+	},
+	"genAutoRun": {
+		"message": "自动执行"
+	},
+	"genCopyFail": {
+		"message": "复制失败"
+	}
+}
