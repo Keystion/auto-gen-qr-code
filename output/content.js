@@ -1308,8 +1308,9 @@ function drawCanvas(obj) {
 		const blob = dataURLtoBlob(dataURL);
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement("a");
+		const date = new Date();
 		a.href = url;
-		a.download = "qrcode.png";
+		a.download = `${window.location.host} ${date.getHours()}_${date.getMinutes()}_${date.getSeconds()}.png`;
 		a.click();
 	});
 
