@@ -1279,6 +1279,14 @@ function drawCanvas(obj) {
 			.setAttribute("style", themeMap[theme]);
 	});
 
+	// 监听打印事件
+	window.addEventListener("beforeprint", () => {
+		shadow.style.display = "none";
+	});
+	window.addEventListener("afterprint", () => {
+		shadow.style.display = "block";
+	});
+
 	// 下载二维码
 	const largeBtn = shadowRoot.querySelector("#large");
 	const copyBtn = shadowRoot.querySelector("#copy");
