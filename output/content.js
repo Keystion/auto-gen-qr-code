@@ -1041,6 +1041,7 @@ function drawCanvas(obj) {
 	// 创建一个新的div元素
 	var qrcodeDiv = document.createElement("div");
 	var positionClass = CONFIG_POSITION.position || "rt";
+	var maxWidth = location.href.length >= 250 ? 180 : 128;
 
 	if (CONFIG_ALWAYS_SHOW.alwaysShow) {
 		positionClass += " isAlwaysShow";
@@ -1188,7 +1189,7 @@ function drawCanvas(obj) {
 		padding: 0;
 		border: 1px solid var(--border-color);
 		border-radius: 8px;
-		max-width: 128px;
+		max-width: ${maxWidth}px;
 	}
 	.qrcode-image-box .qrcode-tips{
 		position: absolute;
@@ -1268,7 +1269,7 @@ function drawCanvas(obj) {
 	const qrcodeSize = shadowRoot.querySelector(".qrcode-size");
 	const qrcodeCanvas = shadowRoot.querySelector("canvas");
 	if (qrcodeSize && qrcodeCanvas) {
-		qrcodeSize.textContent = `128x128（${qrcodeCanvas.width}x${qrcodeCanvas.height}）`;
+		qrcodeSize.textContent = `${maxWidth}x${maxWidth}（${qrcodeCanvas.width}x${qrcodeCanvas.height}）`;
 	}
 
 	// 监听 dark mode
