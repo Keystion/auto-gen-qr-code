@@ -1,4 +1,7 @@
 {
+	"title": {
+		"message": "自动生成二维码"
+	},
 	"description": {
 		"message": "一个打开网站，自动生成当前网站的二维码工具。"
 	},
@@ -20,6 +23,9 @@
 	"disable": {
 		"message": "（已禁用）"
 	},
+	"changed": {
+		"message": "（已更改）"
+	},
 	"active": {
 		"message": "启用插件"
 	},
@@ -40,6 +46,24 @@
 	},
 	"positionLeftBottom": {
 		"message": "左下角"
+	},
+	"distance": {
+		"message": "距离："
+	},
+	"domain_pause_display": {
+		"message": "在这些网站上暂停："
+	},
+	"domain_pause_display_tip": {
+		"message": "每行一个。"
+	},
+	"domain_pause_display_add_current_site": {
+		"message": "添加当前网站"
+	},
+	"domain_pause_display_remove_current_site": {
+		"message": "移除当前网站"
+	},
+	"domain_pause_display_clear": {
+		"message": "清空"
 	},
 	"popupTitle": {
 		"message": "在手机上浏览此网页"

@@ -3,25 +3,61 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>Auto Gen QR code — 自动生成二维码</title>
+		<link rel="stylesheet" href="./styles/index.css">
 		<style>
 			body {
 				width: 320px;
 			}
+			.qr-header {
+				display: flex;
+				width: 100%;
+				align-items: center;
+				padding: 18px 18px 12px;
+			}
+			.qr-header h1 {
+				font-size: 14px;
+				margin-left: 8px;
+			}
+			.qr-main{
+				padding: 0 18px;
+			}
+			.qr-options-title{
+				font-size: 14px;
+				margin-bottom: 8px;
+			}
+			.qr-options-iframe{
+				width: 100%;
+				height: 364px;
+				border: none;
+			}
 		</style>
 	</head>
 	<body>
-		<h2>Auto Gen QR code — 自动生成二维码</h2>
-		<p data-i18n="description"></p>
-		<!-- 跳转至 options.html -->
-		<a href="options.html"><span data-i18n="options"></span></a>
-		<p>
-			<span data-i18n="more"></span>
+		<header class="qr-header">
+			<img src="./images/icon48.png" height="32" width="32" alt="logo" />
+			<h1 data-i18n="title"></h1>
+		</header>
+		<div class="qr-main">
+			<h2 class="qr-options-title" data-i18n="options"></h2>
+			<iframe
+				id="options-iframe"
+				class="qr-options-iframe"
+				src="options.html"
+				crossorigin="anonymous"
+				frameborder="0"
+			></iframe>
+		</div>
+		<footer class="qr-footer">
+			2023 © Key
+			<a class="qr-a" target="_blank" href="options.html">扩展程序选项</a>
+			-
 			<a
-				href="https://github.com/Keystion/auto-gen-qr-code"
+				class="qr-a"
 				target="_blank"
-				>auto-gen-qr-code</a
-			>
-		</p>
+				href="https://github.com/Keystion/auto-gen-qr-code"
+				data-i18n="title"
+			></a>
+		</footer>
 		<script src="popup.js"></script>
 	</body>
 </html>

@@ -4,26 +4,57 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>插件配置 | Auto Gen QR code — 自动生成二维码</title>
+		<link rel="stylesheet" href="./styles/index.css" />
 		<style>
 			body {
-				width: 320px;
+				width: 284px;
+			}
+			#status {
+				position: absolute;
+				top: 4px;
+				right: 18px;
 			}
 			span {
 				line-height: 24px;
 			}
+			.qr-active-switch {
+				display: inline-flex;
+				align-items: center;
+			}
+			.qr-active-switch input {
+				margin-right: 8px;
+			}
+			.qr-options-item {
+				margin-bottom: 8px;
+			}
+			.qr-options-item:last-of-type{
+				margin-bottom: 0;
+			}
 			fieldset {
-				margin-top: 20px;
-				width: 300px;
-				height: 200px;
+				width: 100%;
+				height: 120px;
 				position: relative;
+				border: 1px solid var(--border-color);
+				border-radius: 8px;
+			}
+			legend {
+				margin-left: 1em;
 			}
 			fieldset label {
 				position: absolute;
-				border: 1px solid #000;
-				padding-right: 4px;
 				height: 24px;
 				display: flex;
 				align-items: center;
+				border: 1px solid var(--border-color);
+				border-radius: 3px;
+				padding: 3px 6px;
+				cursor: pointer;
+				background: var(--background-color);
+				color: var(--color);
+				user-select: none;
+			}
+			fieldset label span {
+				margin-left: 8px;
 			}
 			fieldset label[for="rt"] {
 				top: 10px;
@@ -41,57 +72,132 @@
 				bottom: 10px;
 				left: 10px;
 			}
+			.qr-options-distance {
+				display: flex;
+				align-items: center;
+			}
+			.qr-options-distance span {
+				margin-right: 8px;
+			}
+			.qr-options-distance input {
+				flex: 1;
+			}
+			.qr-options-distance input + span {
+				margin-left: 8px;
+			}
+			.qr-options-domain-wrapper{
+				padding: 8px;
+			}
+			.qr-options-domain-wrapper p{
+				margin-bottom: 8px;
+			}
+			.qr-options-domain {
+				width: 100%;
+				height: 96px;
+				border: 1px solid var(--border-color);
+				border-radius: 8px;
+				padding: 8px;
+				resize: none;
+				background-color: var(--background-color);
+				background-attachment: local;
+				background-image:
+					linear-gradient(to right, var(--background-color) 8px, transparent 8px),
+					linear-gradient(to left, var(--background-color) 8px, transparent 8px),
+					repeating-linear-gradient(var(--background-color), var(--background-color) 23px, var(--border-color) 23px, var(--border-color) 24px, var(--background-color) 24px);
+				line-height: 20px;
+			}
 		</style>
 	</head>
 	<body>
-		<h2>Auto Gen QR code — 自动生成二维码</h2>
-		<h3><span data-i18n="options"></span><small><span id="status"></span></small></h3>
-		<!-- 返回 -->
-		<a href="popup.html" data-i18n="back"></a>
-		<span data-i18n="changeStatusTips"></span>
-		<br />
-		<br />
-		<label>
-			<input type="checkbox" id="toggleSwitch" checked />
-			<span data-i18n="active"></span
-		></label>
-		<br />
-		<br />
-		<label>
-			<input type="checkbox" id="alwaysShow" />
-			<span data-i18n="allalwaysShow"></span
-		></label>
+		<div id="status"></div>
+		<div class="qr-options-item">
+			<label class="qr-active-switch">
+				<input type="checkbox" id="toggleSwitch" checked />
+				<span data-i18n="active"></span
+			></label>&nbsp;
+			<label class="qr-active-switch">
+				<input type="checkbox" id="alwaysShow" />
+				<span data-i18n="allalwaysShow"></span
+			></label>
+		</div>
 		<!-- 位置 左上 左下 右上 右下 -->
-		<fieldset>
-			<legend><span data-i18n="positionTitle"></span></legend>
+		<div class="qr-options-item">
+			<fieldset>
+				<legend><strong><span data-i18n="positionTitle"></span></strong></legend>
 
-			<label for="rt"
-				><input
-					type="radio"
-					id="rt"
-					name="positon"
-					value="rt"
-					checked /><span data-i18n="positionRgithTop"></span
-			></label>
+				<label for="rt"
+					><input
+						type="radio"
+						id="rt"
+						name="positon"
+						value="rt"
+						checked /><span data-i18n="positionRgithTop"></span
+				></label>
 
-			<label for="rb"
-				><input type="radio" id="rb" name="positon" value="rb" /><span
-					data-i18n="positionRightBottom"
-				></span
-			></label>
+				<label for="rb"
+					><input
+						type="radio"
+						id="rb"
+						name="positon"
+						value="rb" /><span
+						data-i18n="positionRightBottom"
+					></span
+				></label>
 
-			<label for="lt"
-				><input type="radio" id="lt" name="positon" value="lt" /><span
-					data-i18n="positionLeftTop"
-				></span
-			></label>
+				<label for="lt"
+					><input
+						type="radio"
+						id="lt"
+						name="positon"
+						value="lt" /><span data-i18n="positionLeftTop"></span
+				></label>
 
-			<label for="lb"
-				><input type="radio" id="lb" name="positon" value="lb" /><span
-					data-i18n="positionLeftBottom"
-				></span
-			></label>
-		</fieldset>
+				<label for="lb"
+					><input
+						type="radio"
+						id="lb"
+						name="positon"
+						value="lb" /><span data-i18n="positionLeftBottom"></span
+				></label>
+			</fieldset>
+		</div>
+		<div class="qr-options-item">
+			<div class="qr-options-distance">
+				<strong><span data-i18n="distance"></span></strong>
+				<input
+					type="range"
+					min="2"
+					max="35"
+					step="1"
+					id="distanceRange"
+					value="0"
+				/>
+				<span><span id="distanceRangeValue"></span>%</span>
+			</div>
+		</div>
+		<!-- 哪些域名下不显示二维码 -->
+		<div class="qr-options-item">
+			<fieldset style="height: auto;">
+				<legend>
+					<strong><span data-i18n="domain_pause_display"></span></strong>
+				</legend>
+				<div class="qr-options-domain-wrapper">
+					<p>
+						<span data-i18n="domain_pause_display_tip"></span>
+						<span  data-i18n="domain_pause_display_add_current_site" class="qr-a" id="addDomainBtn"></span>
+						<span  data-i18n="domain_pause_display_remove_current_site" class="qr-a" id="deleteDomainBtn"></span>
+						<span  data-i18n="domain_pause_display_clear" class="qr-a" id="emptyDomainBtn"></span></p>
+					<textarea
+						class="qr-options-domain"
+						id="domain"
+						placeholder="www.example.com"
+						cols="30"
+						rows="10"
+						resize="none"
+					></textarea>
+				</span>
+			</fieldset>
+		</div>
 		<script src="options.js"></script>
 	</body>
 </html>

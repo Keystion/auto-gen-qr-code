@@ -1025,9 +1025,13 @@ function drawCanvas(obj) {
 	// });
 	const CONFIG_ENABLED = await chrome.storage.local.get(["enabled"]);
 	const CONFIG_POSITION = await chrome.storage.local.get(["position"]);
+	const CONFIG_DISTANCE_RANGE = await chrome.storage.local.get(["distanceRange"]);
 	const CONFIG_ALWAYS_SHOW = (await chrome.storage.local.get([
 		"alwaysShow",
 	])) || { alwaysShow: false };
+	const CONFIG_DOMAIN_PAUSE_DISPLAY = await chrome.storage.local.get([
+		"domainPauseDisplay",
+	]);
 
 	if (
 		typeof CONFIG_ENABLED.enabled !== "undefined" &&
@@ -1036,6 +1040,35 @@ function drawCanvas(obj) {
 		return;
 	} else if (typeof CONFIG_ENABLED.enabled === "undefined") {
 		chrome.storage.local.set({ enabled: true });
+	}
+	
+	// 判断是否在指定的域名下暂停显示
+	if (CONFIG_DOMAIN_PAUSE_DISPLAY.domainPauseDisplay) {
+		const { domainPauseDisplay } = CONFIG_DOMAIN_PAUSE_DISPLAY;
+		// if (domainPauseDisplay.includes("*")) {
+		// 	return;
+		// }
+
+		let isPause = false;
+		
+		domainPauseDisplay.forEach((domain) => {
+			// 如果当前页面的域名包含在暂停显示的域名列表中，则不显示二维码
+			if (location.host === domain) {
+				isPause = true;
+				return;
+			}
+			// 如果 domain 中有通配符，如果 *.example.com 则匹配 example.com 和 www.example.com
+			if (domain.includes("*.")) {
+				const domainReg = new RegExp(domain.replace("*.", ""));
+				if (domainReg.test(location.host)) {
+					isPause = true;
+					return;
+				}
+			}
+		});
+		if (isPause) {
+			return;
+		}
 	}
 
 	// 创建一个新的div元素
@@ -1052,6 +1085,11 @@ function drawCanvas(obj) {
 		chrome.storage.local.set({ position: positionClass });
 	}
 
+	// 如果位置为空，设置默认值
+	if (typeof CONFIG_DISTANCE_RANGE.distanceRange === "undefined") {
+		chrome.storage.local.set({ distanceRange: 15 });
+	}
+
 	var themeMap = {
 		light: "--background-color: #fff; --border-color: #dadce0; --color: #47484b; --outline-color: #005fcc;",
 		dark: "--background-color: #292a2d; --border-color: #333538; --color: #e6e8eb; --outline-color: #6366f1;",
@@ -1064,7 +1102,7 @@ function drawCanvas(obj) {
 
 	// 设置div元素的类名为"qrcode"
 	qrcodeDiv.className = "qrcode-wrapper " + positionClass;
-	qrcodeDiv.setAttribute("style", themeMap[theme]);
+	qrcodeDiv.setAttribute("style", `${themeMap[theme]} --distance-range: ${CONFIG_DISTANCE_RANGE.distanceRange}`);
 
 	// 设置div元素的innerHTML为所需的HTML代码
 	qrcodeDiv.innerHTML = `
@@ -1092,6 +1130,7 @@ function drawCanvas(obj) {
 	.qrcode-wrapper{
 		position: fixed;
 		display: flex;
+		font-family: system-ui !important;
 	}
 	.qrcode-handle img{
 		box-sizing: border-box;
@@ -1130,45 +1169,41 @@ function drawCanvas(obj) {
 		display: none;
 	}
 	.qrcode-wrapper.rt{
-		top: 128px;
+		top: calc(100vh * var(--distance-range) / 100);
 		right: 18px;
 		flex-direction: row-reverse;
 	}
 	.qrcode-wrapper.rt .qrcode{
-		top: -40px;
 	}
 	.qrcode-wrapper.isAlwaysShow.rt .qrcode{
 		top: 0;
 	}
 	.qrcode-wrapper.rb{
-		bottom: 128px;
+		bottom: calc(100vh * var(--distance-range) / 100);
 		right: 18px;
 		flex-direction: row-reverse;
 		align-items: flex-end;
 	}
 	.qrcode-wrapper.rb .qrcode{
-		bottom: -50px;
 	}
 	.qrcode-wrapper.isAlwaysShow.rb .qrcode{
 		bottom: 0;
 	}
 	.qrcode-wrapper.lt{
-		top: 128px;
+		top: calc(100vh * var(--distance-range) / 100);
 		left: 18px;
 	}
 	.qrcode-wrapper.lt .qrcode{
-		top: -40px;
 	}
 	.qrcode-wrapper.isAlwaysShow.lt .qrcode{
 		top: 0;
 	}
 	.qrcode-wrapper.lb{
-		bottom: 128px;
+		bottom: calc(100vh * var(--distance-range) / 100);
 		left: 18px;
 		align-items: flex-end;
 	}
 	.qrcode-wrapper.lb .qrcode{
-		bottom: -50px;
 	}
 	.qrcode-wrapper.isAlwaysShow.lb .qrcode{
 		bottom: 0;
@@ -1225,8 +1260,8 @@ function drawCanvas(obj) {
 	}
 	`;
 	shadow.dataset["id"] = "bffmbfheegbbogkmjdhhmcaaljgaapol";
-
-	shadow.classList.add("chrome-extension__auto-gen-qr-code");
+	shadow.style.position = "fixed";
+	shadow.style.zIndex = "999999";
 
 	const shadowRoot = shadow.attachShadow({ mode: "open" });
 
